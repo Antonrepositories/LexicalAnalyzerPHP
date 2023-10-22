@@ -1,0 +1,109 @@
+<?php
+enum Suit
+{
+    case Hearts;
+    case Diamonds;
+    case Clubs;
+    case Spades;
+}
+
+function do_stuff(Suit $s)
+{
+    // ...
+}
+
+#testcommentunix
+// PHP functions
+try {
+    throw new MyException(MyExceptionCase::InvalidMethod);
+} catch (MyException $myE) {
+    echo $myE->getMessage();  // Bad Request - Invalid Method
+}
+function sayHello(string $name): never
+{
+    echo "Hello, $name";
+    exit(); // if we comment this line, php throws fatal error
+}
+
+sayHello("John"); // result: "Hello, John"
+
+
+$array = array(
+    1    => "a",
+    "1"  => "b",
+    1.5  => "c",
+    true => "d",
+);
+class SubClass extends BaseClass {
+   function __construct() {
+       parent::__construct();
+       print "Конструктор класса SubClass\n";
+   }
+}
+interface SomeInterface {}
+var_dump(new class(10) extends SomeClass implements SomeInterface {
+    private $num;
+
+    public function __construct($num)
+    {
+        $this->num = $num;
+    }
+
+    use SomeTrait;
+});
+$name = "John Doe";
+$age = 30;
+$colors = array("red", "green", "blue");
+$agesq = $age ** 2;
+$test = 31.6;
+$t = 0x1F;
+$t .= $test
+$q * $b
+#testcommentunix
+// PHP functions
+function greet($name) {
+    return "Hello, $name!";
+}
+/* test comment multiline
+3232rfefdsfds
+*/
+$a = 10;
+$b = 5;
+
+$addition = $a + $b;
+$subtraction = $a - $b;
+$multiplication = $a * $b;
+$division = $a / $b;
+$modulus = $a % $b;
+$increment = $a++;
+$decrement = $b--;
+
+// Comparison Operators
+$is_equal = $a == $b;
+$is_not_equal = $a != $b;
+$is_identical = $a === $b;
+$is_not_identical = $a !== $b;
+$is_greater = $a > $b;
+$is_less = $a < $b;
+$is_greater_or_equal = $a >= $b;
+$is_less_or_equal = $a <= $b;
+$testrr ??
+$testr ?
+// Logical Operators
+$and = ($a > 0) && ($b > 0);
+$or = ($a > 0) || ($b > 0);
+$not = !($a > 0);
+
+// Assignment Operators
+$c = 15;
+$c += 5;
+$d = 20;
+$d -= 10;
+$e = 10;
+$e *= 2;
+$f = 12;
+$f /= 3;
+
+
+do_stuff(Suit::Spades);
+?>

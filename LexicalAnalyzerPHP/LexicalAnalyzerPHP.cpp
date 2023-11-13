@@ -47,7 +47,7 @@ map<TokenType, string> tokenTypeNames = {
 
 // Функція для виведення результатів аналізу
 void processToken(const string& token, TokenType tokenType) {
-    cout << "<" << token << ", " << tokenTypeNames[tokenType] << ">" << endl;
+    cout << "<" << token << ">" << endl;
 }
 
 void tokenizePHP(const string& code) {
@@ -61,12 +61,13 @@ void tokenizePHP(const string& code) {
     regex dotOperator(R"(\.\=)");
     regex additionalOperators(R"(\+=|-=|/=|%=|==|===|\*=|!=|<=|>=|<=>|<>|!==|&&|!|\?{2}|and|or|xor|->|=>|\+\+|\-\-)");
     regex singleOperators(R"(\+|-|\*|/|%|=|&|\?)");
-    regex delimiterRegex(R"([;,])");
+    regex delimiterRegex(R"([;,)({}\[\]])");
     regex variablesRegex(R"(\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)");
     regex functionRegex(R"(\b[a-zA-Z_][a-zA-Z0-9_]*\s*\()");
 
     smatch match;
     string rest = code;
+    cout << "Comment" << endl;
     while (regex_search(rest, match, commentRegex)) {
         int start_position = rest.find(match.str());
         processToken(match.str(), TOKEN_COMMENT);
@@ -77,37 +78,44 @@ void tokenizePHP(const string& code) {
         processToken(match.str(), TOKEN_COMMENT);
         rest.erase(start_position, match.str().length());
     }
+    cout << "String" << endl;
     while (regex_search(rest, match, stringRegex)) {
         int start_position = rest.find(match.str());
         processToken(match.str(), TOKEN_STRING);
         rest.erase(start_position, match.str().length());
     }
+    cout << "Number" << endl;
     while (regex_search(rest, match, numberRegex)) {
         int start_position = rest.find(match.str());
         processToken(match.str(), TOKEN_NUMBER);
         rest.erase(start_position, match.str().length());
     }
+    cout << "Keyword" << endl;
     while (regex_search(rest, match, keywordRegex)) {
         int start_position = rest.find(match.str());
         processToken(match.str(), TOKEN_KEYWORD);
         rest.erase(start_position, match.str().length());
     }
+    cout << "Variable" << endl;
     while (regex_search(rest, match, variablesRegex)) {
         int start_position = rest.find(match.str());
         processToken(match.str(), TOKEN_VARIABLE);
         rest.erase(start_position, match.str().length());
     }
+    cout << "Reserved" << endl;
     while (regex_search(rest, match, reservedRegex)) {
         int start_position = rest.find(match.str());
         processToken(match.str(), TOKEN_RESERVED);
         rest.erase(start_position, match.str().length());
     }
+    cout << "Function" << endl;
     while (regex_search(rest, match, functionRegex)) {
         int start_position = rest.find(match.str());
         processToken(match.str(), TOKEN_FUNCTION);
         rest.erase(start_position, match.str().length());
     }
     //OPERATORS
+    cout << "Operators" << endl;
     while (regex_search(rest, match, powerOperator)) {
         int start_position = rest.find(match.str());
         processToken(match.str(), TOKEN_OPERATOR);
@@ -128,15 +136,16 @@ void tokenizePHP(const string& code) {
         processToken(match.str(), TOKEN_OPERATOR);
         rest.erase(start_position, match.str().length());
     }
+    cout << "Delimiters" << endl;
     while (regex_search(rest, match, delimiterRegex)) {
         int start_position = rest.find(match.str());
         processToken(match.str(), TOKEN_DELIMITER);
         rest.erase(start_position, match.str().length());
     }
 
+    cout << "Errors" << endl;
 
-    cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" << endl;
-    //cout << rest;
+    cout << rest;
 
 }
 
